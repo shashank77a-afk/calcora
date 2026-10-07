@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>OneCalc – All-in-One Calculator</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>OneCalc - All-in-One Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>
 :root{--bg:#f2f5fc;--card:#fff;--tx:#0f1733;--mu:#667090;--ac:#0b5cff;--ac2:#e6eeff;--bd:#e2e8f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -22,8 +22,8 @@ button{font:inherit;cursor:pointer}.btn{background:var(--ac);color:#fff;border:0
 nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}nav button{flex:1;padding:12px 0;background:none;border:0;color:var(--mu);font-size:12px}nav .on{color:var(--ac);font-weight:800}
 .k{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.k button{padding:20px 0;font-size:23px;border-radius:18px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-weight:600}.k .o{background:var(--ac2);color:var(--ac)}.k .e{background:#ff7a1a;color:#fff;border:0}
 .disp{text-align:right;font-size:40px;font-weight:700;min-height:52px;word-break:break-all}.ex{color:var(--mu);text-align:right;min-height:22px}
-</style></head><body><div class="w" id="app"></div>
-<nav><button id="n0" onclick="go(0)">🏠 Home</button><button id="n1" onclick="go(1)">♥ Favorites</button><button id="n2" onclick="go(2)">🕘 History</button><button id="n3" onclick="go(3)">⚙ Settings</button></nav>
+.th{display:flex;align-items:center;gap:10px;margin:6px 0}.bk{width:44px;height:44px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:20px}.th b{font-size:19px}nav span{display:block;font-size:22px}.t:active,.k button:active,.btn:active{transform:scale(.96)}.hd .tg b{font-size:14px}</style></head><body><div class="w" id="app"></div>
+<nav><button id="n0" onclick="go(0)"><span>🏠</span>Home</button><button id="n1" onclick="go(1)"><span>♥</span>Favorites</button><button id="n2" onclick="go(2)"><span>🕘</span>History</button><button id="n3" onclick="go(3)"><span>⚙</span>Settings</button></nav>
 <script>
 const I=n=>isFinite(n)?Number(n).toLocaleString('en-IN',{maximumFractionDigits:0}):'–',R=n=>'₹'+I(n),D=n=>Number(n).toLocaleString('en-IN',{maximumFractionDigits:2});
 const W=n=>{n=Math.abs(n);return n>=1e7?'₹'+(n/1e7).toFixed(2)+' Crore':n>=1e5?'₹'+(n/1e5).toFixed(2)+' Lakh':R(n)};
@@ -36,11 +36,11 @@ const T=[
 {id:'pct',c:'Math',n:'Percentage',kw:'pratishat percent 50000 ka 18',i:[['p','Percent %',18],['v','Of amount',500]],f:o=>({m:['Result',D(o.p*o.v/100)],r:[['Amount + %',D(o.v*(1+o.p/100))],['Amount − %',D(o.v*(1-o.p/100))]]})},
 {id:'chg',c:'Math',n:'% Increase / Decrease',kw:'change badhna ghatna',i:[['a','Old value',100],['b','New value',125]],f:o=>({m:['Change',D((o.b-o.a)/o.a*100)+'%'],r:[['Difference',D(o.b-o.a)]]})},
 {id:'avg',c:'Math',n:'Average (3 numbers)',kw:'average ausat',i:[['a','Number 1',10],['b','Number 2',20],['c','Number 3',30]],f:o=>({m:['Average',D((o.a+o.b+o.c)/3)],r:[['Sum',D(o.a+o.b+o.c)]]})},
-loan('emi','EMI Calculator',1e6,9,20),loan('home','Home Loan EMI',5e6,8.5,20),loan('car','Car Loan EMI',8e5,9.5,5),loan('pl','Personal Loan EMI',3e5,12,3),
+loan('emi','EMI Calculator',1e6,9,20),loan('home','Home Loan EMI',5e6,8.5,20),loan('car','Car Loan EMI',8e5,9.5,5),loan('ploan','Personal Loan EMI',3e5,12,3),
 {id:'prepay',c:'Loan',n:'Loan Prepayment ⭐',kw:'prepayment part payment interest bachat',i:[['P','Loan amount ₹',1e6],['r','Interest % p.a.',9],['y','Tenure (years)',20],['pp','Prepay amount ₹',1e5]],f:o=>{const n=o.y*12,e=emi(o.P,o.r,n),i=o.r/1200;let b=o.P-o.pp,mo=0,int=0;while(b>0&&mo<1200){const x=b*i;int+=x;b=b+x-e;mo++}const base=e*n-o.P;return{m:['Interest saved',R(base-int)],r:[['Original interest',R(base)],['New interest',R(int)],['Months saved',I(n-mo)],['EMI',R(e)]]}}},
 {id:'sip',c:'Invest',n:'SIP Calculator',kw:'sip mutual fund nivesh',i:[['m','Monthly ₹',10000],['r','Return % p.a.',12],['y','Years',10]],f:o=>{const[v,inv]=sip(o);return{m:['Future value',R(v)],r:[['Invested',R(inv)],['Gain',R(v-inv)],['In words',W(v)]],bar:[inv,v-inv]}}},
 {id:'step',c:'Invest',n:'Step-up SIP',kw:'step up sip',i:[['m','Monthly ₹',10000],['r','Return % p.a.',12],['y','Years',10],['s','Yearly step-up %',10]],f:o=>{const[v,inv]=sip(o,o.s);return{m:['Future value',R(v)],r:[['Invested',R(inv)],['Gain',R(v-inv)],['In words',W(v)]],bar:[inv,v-inv]}}},
-{id:'goal',c:'Invest',n:'Goal Planner (SIP)',kw:'goal lakh crore chahiye 10 saal mein',i:[['g','Target ₹',1e7],['r','Return % p.a.',12],['y','Years',20]],f:o=>{const i=o.r/1200,n=o.y*12,p=o.g*i/((Math.pow(1+i,n)-1)*(1+i));return{m:['Invest monthly',R(p)],r:[['Total invested',R(p*n)],['Goal',W(o.g)]],bar:[p*n,o.g-p*n]}}},
+{id:'goal',c:'Invest',n:'SIP Goal Calculator',kw:'goal lakh crore chahiye 10 saal mein',i:[['g','Target ₹',1e7],['r','Return % p.a.',12],['y','Years',20]],f:o=>{const i=o.r/1200,n=o.y*12,p=o.g*i/((Math.pow(1+i,n)-1)*(1+i));return{m:['Invest monthly',R(p)],r:[['Total invested',R(p*n)],['Goal',W(o.g)]],bar:[p*n,o.g-p*n]}}},
 {id:'lump',c:'Invest',n:'Lumpsum',kw:'lumpsum ek saath',i:[['P','Amount ₹',1e5],['r','Return % p.a.',12],['y','Years',10]],f:o=>{const v=o.P*Math.pow(1+o.r/100,o.y);return{m:['Future value',R(v)],r:[['Gain',R(v-o.P)]],bar:[o.P,v-o.P]}}},
 {id:'fd',c:'Invest',n:'FD Calculator',kw:'fixed deposit fd',i:[['P','Deposit ₹',1e5],['r','Interest % p.a.',7],['y','Years',5]],f:o=>{const v=o.P*Math.pow(1+o.r/400,4*o.y);return{m:['Maturity',R(v)],r:[['Interest',R(v-o.P)]],bar:[o.P,v-o.P]}}},
 {id:'ci',c:'Invest',n:'Compound Interest',kw:'chakravriddhi byaj',i:[['P','Principal ₹',1e5],['r','Rate % p.a.',8],['y','Years',5]],f:o=>{const v=o.P*Math.pow(1+o.r/100,o.y);return{m:['Amount',R(v)],r:[['Interest',R(v-o.P)]],bar:[o.P,v-o.P]}}},
@@ -54,27 +54,112 @@ loan('emi','EMI Calculator',1e6,9,20),loan('home','Home Loan EMI',5e6,8.5,20),lo
 {id:'dd',c:'Date',n:'Date Difference',kw:'din tarikh',i:[['a','From','2026-01-01','date'],['b','To','2026-12-31','date']],f:o=>{const n=Math.round((new Date(o.b)-new Date(o.a))/864e5);return{m:['Days',I(n)],r:[['Weeks',D(n/7)],['Approx. months',D(n/30.44)]]}}},
 {id:'unit',c:'Units',n:'Unit Converter',kw:'converter length weight area gaj acre',i:[['v','Value',1],['f','From','acre','sel'],['t','To','sq ft','sel']],f:o=>{const a=U[o.f],b=U[o.t];if(a[0]!=b[0])return{m:['Mismatch','Same type chuniye'],r:[]};return{m:['Result',D(o.v*a[1]/b[1])+' '+o.t],r:[]}}}
 ];
-const cats=['All','Math','Loan','Invest','GST','Date','Units'];
+
+const g=(a,b)=>b?g(b,a%b):a,idf=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,''),a=(c,n,i,f,kw)=>T.push({id:idf(n),c,n,kw:kw||'',i,f}),P7=n=>Number(n.toPrecision(7)).toLocaleString('en-IN',{maximumFractionDigits:6});
+const fr=(n,d)=>{const k=g(Math.abs(n),Math.abs(d))||1;return n/k+'/'+d/k};
+const nw=n=>{n=Math.floor(n);if(!n)return'Zero';const o='One Two Three Four Five Six Seven Eight Nine Ten Eleven Twelve Thirteen Fourteen Fifteen Sixteen Seventeen Eighteen Nineteen'.split(' '),t='_ _ Twenty Thirty Forty Fifty Sixty Seventy Eighty Ninety'.split(' '),b=x=>x<20?o[x-1]||'':t[x/10|0]+(x%10?' '+o[x%10-1]:''),h=x=>(x>99?o[(x/100|0)-1]+' Hundred'+(x%100?' ':''):'')+b(x%100);let r=[];for(const[v,l]of[[1e7,'Crore'],[1e5,'Lakh'],[1e3,'Thousand']])if(n>=v){r.push(nw(Math.floor(n/v))+' '+l);n%=v}if(n)r.push(h(n));return r.join(' ')};
+const tx=(i,sl)=>{let p=0,t=0;for(const[l,r]of sl){if(i>p)t+=(Math.min(i,l)-p)*r;p=l}return t};
+const nT=i=>{const t=Math.max(i-75000,0);return(t<=12e5?0:tx(t,[[4e5,0],[8e5,.05],[12e5,.1],[16e5,.15],[2e6,.2],[24e5,.25],[1/0,.3]]))*1.04},oT=(i,d)=>{const t=Math.max(i-50000-d,0);return(t<=5e5?0:tx(t,[[25e4,0],[5e5,.05],[1e6,.2],[1/0,.3]]))*1.04};
+const dt=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric',weekday:'long'});
+// Math
+a('Math','Ratio',[['a','A',12],['b','B',18]],o=>{const k=g(o.a,o.b)||1;return{m:['Simplest ratio',o.a/k+' : '+o.b/k],r:[['A ÷ B',D(o.a/o.b)]]}});
+a('Math','Proportion (a:b = c:x)',[['a','a',2],['b','b',5],['c','c',6]],o=>({m:['x',D(o.b*o.c/o.a)],r:[]}));
+a('Math','Fraction Calculator',[['n1','Numerator 1',1],['d1','Denominator 1',2],['n2','Numerator 2',1],['d2','Denominator 2',3]],o=>({m:['Sum',fr(o.n1*o.d2+o.n2*o.d1,o.d1*o.d2)],r:[['Difference',fr(o.n1*o.d2-o.n2*o.d1,o.d1*o.d2)],['Product',fr(o.n1*o.n2,o.d1*o.d2)],['Division',fr(o.n1*o.d2,o.d1*o.n2)]]}));
+a('Math','Square Root',[['a','Number',144]],o=>({m:['√',P7(Math.sqrt(o.a))],r:[['Square',P7(o.a**2)],['Cube',P7(o.a**3)]]}),'varg mool');
+a('Math','Power Calculator',[['a','Base',2],['b','Exponent',10]],o=>({m:['Result',P7(Math.pow(o.a,o.b))],r:[]}));
+a('Math','LCM / HCF (GCD)',[['a','Number 1',12],['b','Number 2',18]],o=>({m:['HCF',I(g(o.a,o.b))],r:[['LCM',I(o.a*o.b/g(o.a,o.b))]]}),'lcm hcf gcd');
+// Loan
+loan('bike','Bike Loan EMI',1e5,10,3);loan('edu','Education Loan EMI',1e6,9.5,7);loan('biz','Business Loan EMI',5e5,14,5);
+a('Loan','Loan Tenure',[['P','Loan ₹',1e6],['r','Rate %',9],['e','EMI you pay ₹',12000]],o=>{const i=o.r/1200;if(o.e<=o.P*i)return{m:['Error','EMI bahut kam hai'],r:[]};const n=-Math.log(1-o.P*i/o.e)/Math.log(1+i);return{m:['Tenure',D(n/12)+' years'],r:[['Months',I(Math.ceil(n))],['Total interest',R(o.e*n-o.P)]]}});
+a('Loan','Loan Interest Rate',[['P','Loan ₹',1e6],['y','Years',10],['e','EMI ₹',13000]],o=>{let lo=.01,hi=60;for(let k=0;k<60;k++){const m=(lo+hi)/2;emi(o.P,m,o.y*12)<o.e?lo=m:hi=m}return{m:['Interest rate',D(lo)+'%'],r:[['Total payment',R(o.e*o.y*12)]]}});
+a('Loan','Loan Eligibility',[['inc','Monthly income ₹',60000],['ex','Existing EMIs ₹',5000],['r','Rate %',9],['y','Years',20]],o=>{const i=o.r/1200,e=Math.max(.5*o.inc-o.ex,0);return{m:['Eligible loan',R(e*(1-Math.pow(1+i,-o.y*12))/i)],r:[['Max EMI (50% of income)',R(e)],['In words',W(e*(1-Math.pow(1+i,-o.y*12))/i)]]}});
+a('Loan','Loan Affordability',[['e','EMI you can pay ₹',20000],['r','Rate %',9],['y','Years',20]],o=>{const i=o.r/1200,L=o.e*(1-Math.pow(1+i,-o.y*12))/i;return{m:['Affordable loan',R(L)],r:[['In words',W(L)]]}});
+a('Loan','Loan Comparison',[['P','Loan ₹',1e6],['r1','Bank A rate %',9],['y1','Bank A years',20],['r2','Bank B rate %',8.5],['y2','Bank B years',20]],o=>{const e1=emi(o.P,o.r1,o.y1*12),e2=emi(o.P,o.r2,o.y2*12),i1=e1*o.y1*12-o.P,i2=e2*o.y2*12-o.P;return{m:['Saving with '+(i1>i2?'B':'A'),R(Math.abs(i1-i2))],r:[['A: EMI',R(e1)],['A: interest',R(i1)],['B: EMI',R(e2)],['B: interest',R(i2)]]}});
+a('Loan','Part Payment',T.find(t=>t.id=='prepay').i,T.find(t=>t.id=='prepay').f,'part payment');
+a('Loan','Balance Transfer',[['P','Outstanding ₹',1e6],['r1','Current rate %',10.5],['r2','New rate %',8.75],['y','Remaining years',15],['fee','Processing fee ₹',10000]],o=>{const n=o.y*12,e1=emi(o.P,o.r1,n),e2=emi(o.P,o.r2,n);return{m:['Net saving',R((e1-e2)*n-o.fee)],r:[['Old EMI',R(e1)],['New EMI',R(e2)],['Monthly saving',R(e1-e2)]]}});
+a('Loan','Amortization (yearly)',[['P','Loan ₹',1e6],['r','Rate %',9],['y','Years',20]],o=>{const e=emi(o.P,o.r,o.y*12),i=o.r/1200;let b=o.P,rows=[];for(let y=1;y<=Math.min(o.y,10);y++){let ip=0,pp=0;for(let k=0;k<12&&b>0;k++){const x=b*i;ip+=x;pp+=e-x;b-=e-x}rows.push(['Year '+y,'P '+R(pp)+' · I '+R(ip)])}return{m:['Monthly EMI',R(e)],r:rows}});
+// Invest
+a('Invest','Reverse SIP (target → monthly)',T.find(t=>t.id=='goal').i,T.find(t=>t.id=='goal').f);
+a('Invest','SIP vs Lumpsum',[['m','Monthly SIP ₹',10000],['r','Return %',12],['y','Years',10]],o=>{const[v,inv]=sip(o),l=inv*Math.pow(1+o.r/100,o.y);return{m:['SIP value',R(v)],r:[['Same money as lumpsum today',R(l)],['Total invested',R(inv)]]}});
+a('Invest','SWP Calculator',[['P','Corpus ₹',5e6],['w','Monthly withdrawal ₹',30000],['r','Return %',8],['y','Years',15]],o=>{let b=o.P,k=0;for(;k<o.y*12&&b>0;k++)b=b*(1+o.r/1200)-o.w;return{m:['Balance left',R(Math.max(b,0))],r:[['Total withdrawn',R(o.w*k)],['Lasted',D(k/12)+' years']]}});
+a('Invest','ROI Calculator',[['a','Invested ₹',1e5],['b','Final value ₹',1.5e5],['y','Years',3]],o=>({m:['ROI',D((o.b-o.a)/o.a*100)+'%'],r:[['Profit',R(o.b-o.a)],['Per year (CAGR)',D((Math.pow(o.b/o.a,1/o.y)-1)*100)+'%']]}));
+a('Invest','XIRR (single investment)',[['a','Invested ₹',1e5],['d1','Invest date','2023-01-01','date'],['b','Value ₹',1.5e5],['d2','Value date','2026-01-01','date']],o=>{const d=(new Date(o.d2)-new Date(o.d1))/864e5;return{m:['XIRR',D((Math.pow(o.b/o.a,365/d)-1)*100)+'%'],r:[['Days',I(d)]]}});
+a('Invest','RD Calculator',[['m','Monthly deposit ₹',5000],['r','Rate %',6.5],['y','Years',5]],o=>{const n=o.y*12;let v=0;for(let k=1;k<=n;k++)v+=o.m*Math.pow(1+o.r/400,4*(n-k+1)/12);return{m:['Maturity',R(v)],r:[['Deposited',R(o.m*n)],['Interest',R(v-o.m*n)]],bar:[o.m*n,v-o.m*n]}});
+a('Invest','PPF Calculator',[['m','Yearly deposit ₹',150000],['r','Rate % (govt changes it)',7.1],['y','Years',15]],o=>{let v=0;for(let k=0;k<o.y;k++)v=(v+o.m)*(1+o.r/100);return{m:['Maturity',R(v)],r:[['Deposited',R(o.m*o.y)],['Interest',R(v-o.m*o.y)]],bar:[o.m*o.y,v-o.m*o.y]}});
+a('Invest','NPS Calculator',[['m','Monthly ₹',5000],['r','Return %',10],['y','Years',30],['an','Annuity %',40],['ar','Annuity rate %',6]],o=>{const[v,inv]=sip(o);return{m:['Corpus',R(v)],r:[['Lumpsum at retirement',R(v*(1-o.an/100))],['Monthly pension',R(v*o.an/100*o.ar/1200)],['Invested',R(inv)]]}});
+a('Invest','EPF Calculator',[['b','Basic+DA monthly ₹',30000],['r','EPF rate %',8.25],['y','Years',20],['s','Salary growth %',5]],o=>{let v=0,b=o.b,inv=0;for(let k=0;k<o.y;k++){const c=b*12*.1567;inv+=c;v=(v+c)*(1+o.r/100);b*=1+o.s/100}return{m:['EPF corpus',R(v)],r:[['Contributed (12% + 3.67%)',R(inv)],['Interest',R(v-inv)]]}});
+a('Invest','SCSS Calculator',[['P','Deposit ₹',1e6],['r','Rate %',8.2]],o=>({m:['Quarterly interest',R(o.P*o.r/400)],r:[['Yearly',R(o.P*o.r/100)],['5 years total',R(o.P*o.r/20)]]}));
+// Salary
+a('Salary','CTC → In-hand',[['c','Annual CTC ₹',1200000],['b','Basic % of CTC',40],['t','Yearly income tax ₹',0],['pt','Professional tax /month ₹',200]],o=>{const b=o.c*o.b/100,cut=b*.12*2+b*.0481+o.t+o.pt*12;return{m:['Monthly in-hand (approx.)',R((o.c-cut)/12)],r:[['Yearly in-hand',R(o.c-cut)],['PF (you + employer)',R(b*.24)],['Gratuity',R(b*.0481)]]}},'ctc in hand');
+a('Salary','Monthly ↔ Annual Salary',[['m','Monthly ₹',50000]],o=>({m:['Annual',R(o.m*12)],r:[['Per day (26 days)',R(o.m/26)],['Per hour',R(o.m/208)]]}));
+a('Salary','Salary Increment',[['s','Current salary ₹',50000],['p','Increment %',10]],o=>({m:['New salary',R(o.s*(1+o.p/100))],r:[['Increase',R(o.s*o.p/100)]]}));
+a('Salary','Salary Growth',[['s','Salary ₹',50000],['p','Yearly increment %',8],['y','Years',10]],o=>({m:['Salary after '+o.y+' yrs',R(o.s*Math.pow(1+o.p/100,o.y))],r:[]}));
+a('Salary','Bonus Calculator',[['b','Monthly basic ₹',30000],['m','Bonus months',1.5],['t','Tax slab %',20]],o=>({m:['Bonus',R(o.b*o.m)],r:[['After tax',R(o.b*o.m*(1-o.t/100))]]}));
+a('Salary','Gratuity Calculator',[['b','Last basic+DA ₹',50000],['y','Years of service',10]],o=>({m:['Gratuity',R(o.b*15/26*o.y)],r:[['Note','5+ saal service zaruri']]}));
+a('Salary','HRA Calculator',[['b','Basic+DA monthly ₹',40000],['h','HRA received ₹',16000],['r','Rent paid ₹',15000],['m','Metro? (1=haan, 0=nahi)',1]],o=>({m:['HRA exempt / month',R(Math.max(Math.min(o.h,o.r-.1*o.b,(o.m?.5:.4)*o.b),0))],r:[['Yearly exempt',R(12*Math.max(Math.min(o.h,o.r-.1*o.b,(o.m?.5:.4)*o.b),0))]]}));
+a('Salary','DA Calculator',[['b','Basic ₹',40000],['d','DA %',55]],o=>({m:['DA',R(o.b*o.d/100)],r:[['Basic + DA',R(o.b*(1+o.d/100))]]}));
+a('Salary','Income Tax Calculator',[['i','Yearly income ₹',1500000]],o=>({m:['Tax (new regime)',R(nT(o.i))],r:[['Monthly',R(nT(o.i)/12)],['Note','FY 2025-26 slabs, verify karein']]}),'income tax');
+a('Salary','Old vs New Tax Regime',[['i','Yearly income ₹',1500000],['d','Deductions (80C, HRA...) ₹',200000]],o=>{const n=nT(o.i),d=oT(o.i,o.d);return{m:[n<=d?'New regime better':'Old regime better',R(Math.abs(n-d))+' bachat'],r:[['New regime tax',R(n)],['Old regime tax',R(d)],['Note','FY 2025-26 slabs, verify karein']]}});
+a('Salary','80C Tax Saving',[['i','Yearly income ₹',1500000],['d','80C investment ₹',150000]],o=>({m:['Tax saved (old regime)',R(oT(o.i,0)-oT(o.i,Math.min(o.d,150000)))],r:[['Max 80C limit',R(150000)]]}));
+// GST & Business
+a('GST','CGST & SGST',[['a','Amount ₹',1000],['g','GST %',18]],o=>({m:['CGST',D(o.a*o.g/200)],r:[['SGST',D(o.a*o.g/200)],['Total GST',D(o.a*o.g/100)]]}),'cgst sgst');
+a('GST','IGST Calculator',[['a','Amount ₹',1000],['g','IGST %',18]],o=>({m:['IGST',D(o.a*o.g/100)],r:[['Total',D(o.a*(1+o.g/100))]]}));
+a('GST','Profit Margin',[['c','Cost ₹',800],['s','Selling ₹',1000]],o=>({m:['Margin',D((o.s-o.c)/o.s*100)+'%'],r:[['Profit',R(o.s-o.c)]]}));
+a('GST','Markup Calculator',[['c','Cost ₹',800],['s','Selling ₹',1000]],o=>({m:['Markup',D((o.s-o.c)/o.c*100)+'%'],r:[['Profit',R(o.s-o.c)]]}));
+a('GST','Selling Price',[['c','Cost ₹',800],['m','Margin %',20]],o=>({m:['Selling price',R(o.c/(1-o.m/100))],r:[['Profit',R(o.c/(1-o.m/100)-o.c)]]}));
+a('GST','Break-even',[['f','Fixed cost ₹',100000],['p','Price per unit ₹',500],['v','Variable cost/unit ₹',300]],o=>({m:['Break-even units',I(Math.ceil(o.f/(o.p-o.v)))],r:[['Break-even sales',R(Math.ceil(o.f/(o.p-o.v))*o.p)]]}));
+a('GST','Discount Calculator',[['a','Price ₹',2000],['d','Discount %',25]],o=>({m:['Final price',R(o.a*(1-o.d/100))],r:[['You save',R(o.a*o.d/100)]]}));
+a('GST','Multiple Discount',[['a','Price ₹',5000],['d1','Discount 1 %',20],['d2','Discount 2 %',10],['d3','Discount 3 %',0]],o=>{const x=o.a*(1-o.d1/100)*(1-o.d2/100)*(1-o.d3/100);return{m:['Final price',R(x)],r:[['You save',R(o.a-x)],['Effective discount',D((1-x/o.a)*100)+'%']]}});
+// Shopping
+a('Shopping','Tip Calculator',[['b','Bill ₹',1500],['t','Tip %',10]],o=>({m:['Total',R(o.b*(1+o.t/100))],r:[['Tip',R(o.b*o.t/100)]]}));
+a('Shopping','Split Bill',[['b','Bill ₹',3000],['n','People',4],['t','Tip %',0]],o=>({m:['Per person',R(o.b*(1+o.t/100)/o.n)],r:[['Total',R(o.b*(1+o.t/100))]]}));
+a('Shopping','Unit Price',[['p1','Price A ₹',120],['q1','Qty A',500],['p2','Price B ₹',210],['q2','Qty B',1000]],o=>({m:[o.p1/o.q1<o.p2/o.q2?'A sasta hai':'B sasta hai',''],r:[['A per unit',D(o.p1/o.q1)],['B per unit',D(o.p2/o.q2)]]}));
+a('Shopping','Buy 1 Get 1',[['p','Price per item ₹',500],['q','Items you get',4]],o=>({m:['You pay',R(Math.ceil(o.q/2)*o.p)],r:[['You save',R(Math.floor(o.q/2)*o.p)]]}));
+a('Shopping','Fuel Cost',[['d','Distance km',300],['k','Mileage km/l',15],['p','Fuel price ₹/l',100]],o=>({m:['Fuel cost',R(o.d/o.k*o.p)],r:[['Fuel needed',D(o.d/o.k)+' L']]}));
+a('Shopping','Fuel Mileage',[['d','Distance km',300],['l','Fuel used (L)',20]],o=>({m:['Mileage',D(o.d/o.l)+' km/l'],r:[['Per 100 km',D(o.l/o.d*100)+' L']]}));
+// Property
+a('Property','Rent vs Buy',[['p','Property price ₹',5e6],['d','Down payment %',20],['r','Loan rate %',8.5],['y','Years',20],['rent','Monthly rent ₹',20000]],o=>{const e=emi(o.p*(1-o.d/100),o.r,o.y*12);let rt=0;for(let k=0;k<o.y;k++)rt+=o.rent*12*Math.pow(1.05,k);return{m:['Monthly EMI vs rent',R(e)+' vs '+R(o.rent)],r:[['Total buy cost (down + EMI)',R(e*o.y*12+o.p*o.d/100)],['Total rent (5% yearly rise)',R(rt)],['Property value (5% growth)',R(o.p*Math.pow(1.05,o.y))]]}});
+a('Property','Property Affordability',[['inc','Monthly income ₹',100000],['ex','Existing EMIs ₹',0],['dp','Down payment ready ₹',1e6],['r','Rate %',8.5],['y','Years',20]],o=>{const i=o.r/1200,e=Math.max(.4*o.inc-o.ex,0),L=e*(1-Math.pow(1+i,-o.y*12))/i;return{m:['Property budget',R(L+o.dp)],r:[['Loan',R(L)],['EMI (40% of income)',R(e)],['In words',W(L+o.dp)]]}});
+a('Property','Down Payment',[['p','Price ₹',5e6],['d','Down payment %',20]],o=>({m:['Down payment',R(o.p*o.d/100)],r:[['Loan needed',R(o.p*(1-o.d/100))]]}));
+a('Property','Home Construction Cost',[['a','Built-up area sq ft',1200],['r','Cost ₹/sq ft',2000]],o=>({m:['Total cost',R(o.a*o.r)],r:[['In words',W(o.a*o.r)]]}));
+a('Property','Carpet Area',[['b','Built-up area sq ft',1200],['l','Loading %',20]],o=>({m:['Carpet area',D(o.b/(1+o.l/100))+' sq ft'],r:[]}));
+a('Property','Built-up Area',[['c','Carpet area sq ft',1000],['l','Loading %',20]],o=>({m:['Built-up area',D(o.c*(1+o.l/100))+' sq ft'],r:[]}));
+// Date
+a('Date','Add / Subtract Days',[['d','Date','2026-10-07','date'],['n','Days (+ add, − subtract)',30]],o=>{const x=new Date(o.d);x.setDate(x.getDate()+o.n);return{m:['Result',dt(x)],r:[]}});
+a('Date','Working Days',[['a','From','2026-10-01','date'],['b','To','2026-10-31','date']],o=>{let c=0,x=new Date(o.a);for(let k=0;x<=new Date(o.b)&&k<6000;k++){const w=x.getDay();if(w&&w<6)c++;x.setDate(x.getDate()+1)}return{m:['Working days (Mon–Fri)',I(c)],r:[['Holidays alag se hatayein','']]}});
+a('Date','Retirement Date',[['d','Date of birth','1990-01-01','date'],['a','Retirement age',60]],o=>{const x=new Date(o.d);x.setFullYear(x.getFullYear()+o.a);return{m:['Retirement',dt(x)],r:[['Years left',D((x-new Date())/31557600000)]]}});
+a('Date','Birthday Countdown',[['d','Date of birth','2000-01-01','date']],o=>{const b=new Date(o.d),t=new Date();let n=new Date(t.getFullYear(),b.getMonth(),b.getDate());if(n<new Date(t.getFullYear(),t.getMonth(),t.getDate()))n.setFullYear(n.getFullYear()+1);return{m:['Days left',I(Math.round((n-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/864e5))],r:[['Birthday',dt(n)]]}});
+// India
+a('India','Number to Words',[['n','Number',12500000]],o=>({m:['Words',nw(o.n)],r:[['Indian format',I(o.n)],['International',Math.floor(o.n).toLocaleString('en-US')],['Short',W(o.n)]]}),'number words lakh crore');
+a('India','Lakh / Crore ↔ Million',[['v','Value',1],['u','Unit','Crore','sel',['Lakh','Crore','Million']]],o=>{const n=o.v*{Lakh:1e5,Crore:1e7,Million:1e6}[o.u];return{m:['Number',I(n)],r:[['Lakh',P7(n/1e5)],['Crore',P7(n/1e7)],['Million',P7(n/1e6)]]}},'lakh crore million');
+// Units
+T.splice(T.findIndex(t=>t.id=='unit'),1);
+Object.assign(U,{marla:['a',25.2929],kanal:['a',505.857],'m/s':['sp',1],'km/h':['sp',.277778],mph:['sp',.44704],KB:['d',1],MB:['d',1024],GB:['d',1048576],TB:['d',1073741824],sec:['t',1],min:['t',60],hour:['t',3600],day:['t',86400],Pa:['p',1],kPa:['p',1e3],bar:['p',1e5],psi:['p',6894.76],atm:['p',101325],J:['e',1],kJ:['e',1e3],cal:['e',4.184],kWh:['e',3.6e6],W:['pw',1],kW:['pw',1e3],hp:['pw',745.7],Hz:['fq',1],kHz:['fq',1e3],MHz:['fq',1e6]});
+for(const[n,t]of Object.entries({Length:'l',Weight:'w','Land & Area (Bigha/Katha state-wise alag)':'a',Volume:'v',Speed:'sp','Data / Storage':'d',Time:'t',Pressure:'p',Energy:'e',Power:'pw',Frequency:'fq'})){const ks=Object.keys(U).filter(k=>U[k][0]==t);a('Units',n.split(' (')[0]+' Converter',[['v','Value',1],['f','From',ks[0],'sel',ks],['t','To',ks[1],'sel',ks]],o=>{const x=U[o.f],y=U[o.t];return{m:['Result',P7(o.v*x[1]/y[1])+' '+o.t],r:[]}},'converter unit '+(t=='a'?'bigha gaj acre':''))}
+a('Units','Temperature Converter',[['v','Value',30],['f','From','°C','sel',['°C','°F','K']]],o=>{const c=o.f=='°C'?o.v:o.f=='°F'?(o.v-32)*5/9:o.v-273.15;return{m:['Celsius',D(c)+' °C'],r:[['Fahrenheit',D(c*9/5+32)+' °F'],['Kelvin',D(c+273.15)+' K']]}});
+const ORD=['Math','Loan','Invest','Salary','GST','Shopping','Property','Date','Units','India'];T.sort((x,y)=>ORD.indexOf(x.c)-ORD.indexOf(y.c));
+
+const cats=['All','Math','Loan','Invest','Salary','GST','Shopping','Property','Date','Units','India'];
 let S={tab:0,q:'',cat:'All',tool:null,v:{}},fav=[],hist=[],bx='';
 try{fav=JSON.parse(localStorage.getItem('cf')||'[]');hist=JSON.parse(localStorage.getItem('ch')||'[]');const th=localStorage.getItem('ct');if(th)document.documentElement.dataset.theme=th}catch(e){}
 const sv=()=>{try{localStorage.setItem('cf',JSON.stringify(fav));localStorage.setItem('ch',JSON.stringify(hist.slice(0,50)))}catch(e){}};
 const $=id=>document.getElementById(id);
-function go(t){S.tab=t;S.tool=null;draw()}
-function openTool(id){S.tool=T.find(x=>x.id==id);S.v={};(S.tool.i||[]).forEach(a=>S.v[a[0]]=a[2]);draw()}
-const CI={Math:'🧮',Loan:'🏦',Invest:'📈',GST:'🧾',Date:'📅',Units:'📏'},CC={Math:'#e6eeff',Loan:'#e0f4ff',Invest:'#e3f7e9',GST:'#fff0dd',Date:'#f1e6ff',Units:'#ffe8ee'};
+function go(t){if(t==S.tab&&!S.tool)return;S.tab=t;S.tool=null;history.pushState({tab:t},'');draw()}
+function openTool(id,np){S.tool=T.find(x=>x.id==id);S.v={};(S.tool.i||[]).forEach(a=>S.v[a[0]]=a[2]);if(!np)history.pushState({tab:S.tab,tool:id},'');draw()}
+const CI={Math:'🧮',Loan:'🏦',Invest:'📈',GST:'🧾',Date:'📅',Units:'📏',Salary:'💼',Shopping:'🛒',Property:'🏠',India:'🇮🇳'},CC={Math:'#e6eeff',Loan:'#e0f4ff',Invest:'#e3f7e9',GST:'#fff0dd',Date:'#f1e6ff',Units:'#ffe8ee',Salary:'#e3f7e9',Shopping:'#fff0dd',Property:'#e0f4ff',India:'#fff0dd'};
 function tiles(l){return l.length?'<div class="g">'+l.map(t=>`<button class="t" onclick="openTool('${t.id}')"><span class="ic" style="background:${CC[t.c]}">${CI[t.c]}</span>${t.n}<small>${t.c}</small></button>`).join('')+'</div>':'<p class="sub">Kuch nahi mila</p>'}
 function pop(){return '<h2>Popular</h2><div class="pop">'+[['emi','EMI','Loan'],['sip','SIP','Invest'],['gadd','GST','GST'],['basic','Calc','Math']].map(x=>`<button onclick="openTool('${x[0]}')"><div class="ic" style="background:${CC[x[2]]}">${CI[x[2]]}</div>${x[1]}</button>`).join('')+'</div>'}
 function draw(){[0,1,2,3].forEach(i=>$('n'+i).className=S.tab==i&&!S.tool?'on':'');const a=$('app');
 if(S.tool)return tool(a);
 if(S.tab==0){const q=S.q.toLowerCase(),l=T.filter(t=>(S.cat=='All'||t.c==S.cat)&&(!q||(t.n+t.kw+t.c).toLowerCase().includes(q)));
-a.innerHTML=`<div class="hd"><div class="br"><div class="logo">1</div><div><b style="font-size:23px">OneCalc</b><div class="tg">Everything You Need to Calculate</div></div></div><input id="q" placeholder="🔍 EMI, SIP, GST, ghar ki EMI…" value="${S.q}" oninput="S.q=this.value;draw();const e=$('q');e.focus();e.setSelectionRange(99,99)"></div><div class="chips">${cats.map(c=>`<button class="chip ${S.cat==c?'on':''}" onclick="S.cat='${c}';draw()">${c}</button>`).join('')}</div>${S.q||S.cat!='All'?'':pop()}<h2>${S.q||S.cat!='All'?'Results':'All calculators'}</h2>${tiles(l)}`}
+a.innerHTML=`<div class="hd"><div class="br"><div class="logo">1</div><div><b style="font-size:23px">OneCalc</b><div class="tg"><b>All-in-One Calculator</b><br>Everything You Need to Calculate</div></div></div><input id="q" placeholder="🔍 EMI, SIP, GST, ghar ki EMI…" value="${S.q}" oninput="S.q=this.value;draw();const e=$('q');e.focus();e.setSelectionRange(99,99)"></div><div class="chips">${cats.map(c=>`<button class="chip ${S.cat==c?'on':''}" onclick="S.cat='${c}';draw()">${c}</button>`).join('')}</div>${S.q||S.cat!='All'?'':pop()}<h2>${S.q||S.cat!='All'?'Results':'All calculators'}</h2>${tiles(l)}`}
 else if(S.tab==1){a.innerHTML='<h1>Favorites</h1>'+(fav.length?tiles(T.filter(t=>fav.includes(t.id))):'<p class="sub">Calculator ke andar ♡ dabakar add karein.</p>')}
 else if(S.tab==2){a.innerHTML='<h1>History</h1>'+(hist.length?hist.map(h=>`<div class="card"><b>${h.n}</b><div class="big" style="font-size:20px">${h.v}</div><div class="sub">${h.t}</div></div>`).join('')+'<button class="btn ghost" onclick="hist=[];sv();draw()">Clear</button>':'<p class="sub">Abhi koi calculation nahi. Data sirf aapke device par rehta hai.</p>')}
 else a.innerHTML='<h1>Settings</h1><div class="card"><label>Theme</label><div class="g"><button class="btn ghost" onclick="th(\'light\')">Light</button><button class="btn ghost" onclick="th(\'dark\')">Dark</button></div></div><div class="card sub">OneCalc v1 · No login · No cloud · Aapka data device par hi rehta hai.<br>Tax/GST rates verify karke use karein.</div>'}
 function th(x){document.documentElement.dataset.theme=x;try{localStorage.setItem('ct',x)}catch(e){}}
-function tool(a){const t=S.tool,h=`<button class="chip" onclick="S.tool=null;draw()">← Back</button> <button class="chip" onclick="tf('${t.id}')">${fav.includes(t.id)?'♥':'♡'} Favorite</button><h1>${t.n}</h1>`;
+function tool(a){const t=S.tool,h=`<div class="th"><button class="bk" onclick="history.back()">←</button><div style="flex:1"><b>${t.n}</b><div class="sub">${CI[t.c]} ${t.c}</div></div><button class="bk" onclick="tf('${t.id}')">${fav.includes(t.id)?'♥':'♡'}</button></div>`;
 if(t.b){a.innerHTML=h+`<div class="card"><div class="ex" id="ex"></div><div class="disp" id="dp">0</div></div><div class="k">${['AC','⌫','%','÷','7','8','9','×','4','5','6','−','1','2','3','+','00','0','.','='].map(k=>`<button class="${'÷×−+'.includes(k)?'o':k=='='?'e':''}" onclick="key('${k}')">${k}</button>`).join('')}</div>`;bx='';return}
-a.innerHTML=h+`<div class="card" id="in">${t.i.map(x=>`<label>${x[1]}</label>`+(x[3]=='sel'?`<select onchange="S.v['${x[0]}']=this.value;res()">${Object.keys(U).map(u=>`<option ${S.v[x[0]]==u?'selected':''}>${u}</option>`).join('')}</select>`:`<input type="${x[3]||'number'}" inputmode="decimal" value="${S.v[x[0]]}" oninput="S.v['${x[0]}']=this.value;res()">`)).join('')}</div><div id="out"></div>`;res()}
+a.innerHTML=h+`<div class="card" id="in">${t.i.map(x=>`<label>${x[1]}</label>`+(x[3]=='sel'?`<select onchange="S.v['${x[0]}']=this.value;res()">${(x[4]||Object.keys(U)).map(u=>`<option ${S.v[x[0]]==u?'selected':''}>${u}</option>`).join('')}</select>`:`<input type="${x[3]||'number'}" inputmode="decimal" value="${S.v[x[0]]}" oninput="S.v['${x[0]}']=this.value;res()">`)).join('')}</div><div id="out"></div>`;res()}
 function tf(id){fav=fav.includes(id)?fav.filter(x=>x!=id):[...fav,id];sv();draw()}
 function res(){const t=S.tool,o={};t.i.forEach(x=>o[x[0]]=x[3]?S.v[x[0]]:parseFloat(S.v[x[0]])||0);let r;try{r=t.f(o)}catch(e){r={m:['Error','–'],r:[]}}
 S.last=t.n+'\n'+t.i.map(x=>x[1]+': '+S.v[x[0]]).join('\n')+'\n'+r.m[0]+': '+r.m[1];
@@ -82,5 +167,6 @@ $('out').innerHTML=`<div class="card res"><div class="sub">${r.m[0]}</div><div c
 function sv2(v){hist.unshift({n:S.tool.n,v,t:new Date().toLocaleString('en-IN')});sv();alert('History me save ho gaya')}
 function sh(){const x='OneCalc – '+S.last;if(navigator.share)navigator.share({text:x}).catch(()=>{});else try{navigator.clipboard.writeText(x);alert('Copied')}catch(e){}}
 function key(k){if(k=='AC')bx='';else if(k=='⌫')bx=bx.slice(0,-1);else if(k=='='){try{const e=bx.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/(\d+\.?\d*)%/g,'($1/100)');if(/[^0-9+\-*\/().\s]/.test(e))throw 0;const v=Function('"use strict";return ('+e+')')();$('ex').textContent=bx+' =';hist.unshift({n:'Basic',v:D(v),t:bx});sv();bx=String(+v.toFixed(10))}catch(e){bx='';$('ex').textContent='Error'}}else bx+=k;$('dp').textContent=bx?bx.replace(/\d+(\.\d+)?/g,m=>m.length>3&&!m.includes('.')?Number(m).toLocaleString('en-IN'):m):'0'}
+history.replaceState({tab:0},'');addEventListener('popstate',e=>{const q=e.state||{tab:0};S.tab=q.tab||0;if(q.tool)openTool(q.tool,1);else{S.tool=null;draw()}});
 draw();
 </script></body></html>
