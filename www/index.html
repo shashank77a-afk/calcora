@@ -24,7 +24,26 @@ nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px
 .disp{text-align:right;font-size:40px;font-weight:700;min-height:52px;word-break:break-all}.ex{color:var(--mu);text-align:right;min-height:22px}
 .th{display:flex;align-items:center;gap:10px;margin:6px 0}.bk{width:44px;height:44px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:20px}.th b{font-size:19px}nav span{display:block;font-size:22px}.t:active,.k button:active,.btn:active{transform:scale(.96)}.hd .tg b{font-size:14px}</style></head><body><div class="w" id="app"></div>
 <nav><button id="n0" onclick="go(0)"><span>🏠</span>Home</button><button id="n1" onclick="go(1)"><span>♥</span>Favorites</button><button id="n2" onclick="go(2)"><span>🕘</span>History</button><button id="n3" onclick="go(3)"><span>⚙</span>Settings</button></nav>
+
+<!-- Capacitor JS link kiya gaya hai yahan -->
+<script src="capacitor.js"></script>
+
 <script>
+// Back button event listener (Capacitor ke zariye)
+document.addEventListener('deviceready', () => {
+    if (window.Capacitor && window.Capacitor.Plugins.App) {
+        window.Capacitor.Plugins.App.addListener('backButton', ({ canGoBack }) => {
+            if (S.tool) {
+                history.back();
+            } else if (S.tab !== 0) {
+                go(0);
+            } else {
+                window.Capacitor.Plugins.App.exitApp();
+            }
+        });
+    }
+});
+
 const I=n=>isFinite(n)?Number(n).toLocaleString('en-IN',{maximumFractionDigits:0}):'–',R=n=>'₹'+I(n),D=n=>Number(n).toLocaleString('en-IN',{maximumFractionDigits:2});
 const W=n=>{n=Math.abs(n);return n>=1e7?'₹'+(n/1e7).toFixed(2)+' Crore':n>=1e5?'₹'+(n/1e5).toFixed(2)+' Lakh':R(n)};
 const emi=(P,r,n)=>{r/=1200;return r?P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):P/n};
