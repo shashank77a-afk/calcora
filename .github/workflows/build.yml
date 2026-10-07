@@ -9,8 +9,10 @@ jobs:
         with: {node-version: 20}
       - uses: actions/setup-java@v4
         with: {distribution: temurin, java-version: 17}
-      - run: npm install
+      - run: npm install && npm install @capacitor/app@6 @capacitor-community/admob@6
       - run: npx cap add android
+      - name: AdMob app id
+        run: sed -i "s#</application>#<meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"ca-app-pub-4977912781671426~3113296143\"/></application>#" android/app/src/main/AndroidManifest.xml
       - run: npx cap sync android
       - name: Icon and splash
         run: |
